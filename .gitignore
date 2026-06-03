@@ -1,0 +1,53 @@
+# Data
+data/raw/
+data/processed/
+data/splits/
+*.csv
+
+# Notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+.venv
+
+# Models
+*.pkl
+*.joblib
+*.json
+*.model
+models/
+
+# Jupyter
+.jupyter/
+.jupyterlab/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# AWS / SageMaker
+.aws/
+*.pem
+credentials.json
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Experiment outputs
+mlruns/
+wandb/
