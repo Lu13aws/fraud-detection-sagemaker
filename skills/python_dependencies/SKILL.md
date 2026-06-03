@@ -23,6 +23,20 @@ The skill should automatically:
 
 ---
 
+## Windows-Specific Package Warnings
+
+⚠️ **These packages require Microsoft Visual C++ 14.0+ on Windows:**
+
+* `gevent` — asyncio library (pulls in greenlet)
+* `greenlet` — low-level concurrency
+* `certain numpy/scipy versions` — numerical computing
+* `cryptography` — encryption (sometimes needs compilation)
+* `psycopg2` — PostgreSQL driver (binary version available as psycopg2-binary)
+
+**Solution:** Use `pip install --only-binary :all:` flag to install only pre-built wheels and avoid compilation.
+
+---
+
 ## Typical Dependency Categories
 
 The skill should recognize common categories such as:
@@ -88,17 +102,57 @@ The skill should:
 
 ---
 
+## Installation Strategies
+
+### Standard Installation (Linux/macOS or Windows with C++ compiler)
+```bash
+pip install -r requirements.txt
+```
+
+### Windows Pre-Built Wheels Only (Avoids C++ Compiler Requirement)
+```bash
+pip install -r requirements.txt --only-binary :all:
+# OR for specific packages:
+pip install gevent --only-binary :all:
+```
+
+### Separate Required vs Optional Dependencies
+
+**requirements.txt** (required for all users):
+```text
+pandas>=1.5.0
+numpy>=1.23.0
+scikit-learn>=1.2.0
+xgboost>=1.7.0
+```
+
+**requirements-dev.txt** (optional for developers):
+```text
+-r requirements.txt
+pytest>=7.0
+black>=22.0
+mypy>=0.990
+jupyter>=1.0.0
+```
+
+Install with: `pip install -r requirements-dev.txt`
+
+---
+
 ## Standard Workflow
 
 Typical workflow:
 
 1. Analyze project requirements
 2. Recommend dependencies
-3. Generate requirements.txt
-4. Install packages
-5. Validate compatibility
-6. Separate optional vs required dependencies
-7. Suggest version pinning where appropriate
+3. Identify Windows-problematic packages (gevent, greenlet, etc.)
+4. Generate requirements.txt with platform notes
+5. Suggest pre-built wheel strategy if needed
+6. Install packages (with appropriate flags)
+7. Validate compatibility
+8. Separate optional vs required dependencies
+9. Suggest version pinning where appropriate
+10. Document transitive dependencies that may cause issues
 
 ---
 
