@@ -35,6 +35,19 @@ secrets/
 keyfile
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# PRIVATE INTELLECTUAL PROPERTY (MAINTAINED IN SEPARATE PRIVATE REPO)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# These folders are maintained in a separate private GitHub repo:
+# https://github.com/YOUR-USERNAME/personal-data-engineering-kit
+# This keeps proprietary methodologies, automation, and frameworks private
+# while the fraud detection project remains public for portfolio demonstration
+
+skills/
+scripts/
+prompts/
+config/
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # MODELS & ARTIFACTS (TOO LARGE - USE S3 OR MODEL REGISTRY)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
