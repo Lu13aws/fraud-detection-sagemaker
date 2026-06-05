@@ -164,8 +164,9 @@ fraud-detection-sagemaker/
 
 ### Prerequisites
 
-- **Python 3.10+**
+- **Python 3.13+** (Python 3.9 support ended April 2026 — upgrade required for boto3 compatibility)
 - **AWS Account** with SageMaker and S3 access
+- **AWS CLI** configured with credentials (`aws configure`)
 - **Kaggle API** (for dataset download)
 - **Git** and GitHub account (already done for you)
 
@@ -179,11 +180,16 @@ cd fraud-detection-sagemaker
 ### 2. Set Up Python Environment
 
 ```bash
-python -m venv venv
-source venv/bin/activate          # macOS/Linux
-# or
-venv\Scripts\activate             # Windows
+# Create virtual environment (Python 3.13+)
+python -m venv .venv
 
+# Activate it
+source .venv/bin/activate         # macOS/Linux
+# or
+.venv\Scripts\activate            # Windows
+
+# Install dependencies
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
@@ -211,7 +217,7 @@ aws configure
 
 Create an S3 bucket:
 ```bash
-aws s3 mb s3://your-bucket-name --region us-east-1
+aws s3 mb s3://your-bucket-name --region eu-central-1
 ```
 
 ---
