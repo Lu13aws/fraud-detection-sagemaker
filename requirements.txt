@@ -8,5 +8,5 @@ matplotlib>=3.6.0
 seaborn>=0.12.0
 boto3>=1.26.0
 sagemaker>=2.140.0
-kaggle>=1.5.12
 jupyter>=1.0.0
+# Removed: kaggle (optional - only needed if you haven't downloaded dataset yet)
