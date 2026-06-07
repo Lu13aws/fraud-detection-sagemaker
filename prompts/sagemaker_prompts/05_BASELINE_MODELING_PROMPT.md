@@ -1,6 +1,6 @@
 Act as a Senior Machine Learning Engineer.
 
-Using the cleaned dataset, prepare the data for machine learning and build a baseline fraud detection model.
+Using the cleaned dataset, prepare the data for machine learning and build a baseline classification model.
 
 Tasks:
 
@@ -20,9 +20,9 @@ Evaluate using:
 * Recall
 * F1 Score
 * ROC-AUC
-* PR-AUC
+* PR-AUC (Precision-Recall AUC) ← Primary metric for imbalanced classification
 
-Do not use Accuracy as the primary metric due to severe class imbalance.
+Do not use Accuracy as the primary metric due to class imbalance.
 
 Compare all approaches and identify the best baseline.
 

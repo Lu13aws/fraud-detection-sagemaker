@@ -8,14 +8,14 @@ prepare features and data for machine learning modeling.
 1. **Feature Selection & Transformation**
    - Select relevant features for modeling
    - Identify and apply feature transformations:
-     - Log transformation for right-skewed numerical features (e.g., Amount field)
+     - Log transformation for right-skewed numerical features (e.g., monetary values, transaction amounts)
      - Square root transformation for moderate skewness
      - Power transformations for non-normal distributions
    - Document all transformations applied
 
 2. **Feature Scaling**
    - Choose appropriate scaler:
-     - **RobustScaler** (RECOMMENDED): Robust to outliers, ideal for fraud detection
+     - **RobustScaler** (RECOMMENDED): Robust to outliers, ideal for imbalanced classification
      - StandardScaler: For normally distributed features
      - MinMaxScaler: When bounded ranges are important
    - Justify your scaler choice based on feature distributions
@@ -27,10 +27,10 @@ prepare features and data for machine learning modeling.
      - 15% Validation (hyperparameter tuning, early stopping)
      - 15% Testing (final evaluation, unseen data)
    - **CRITICAL:** Use stratified splitting to preserve class distribution
-   - For imbalanced classification (fraud detection):
-     - Ensure each split maintains the original fraud percentage
-     - Expected: ~0.17% fraud rate in all splits
-   - Document split sizes and fraud percentages
+   - For imbalanced classification:
+     - Ensure each split maintains the original minority class percentage
+     - Example: If your dataset has 1% minority class, maintain ~1% in each split
+   - Document split sizes and class percentages
 
 4. **Data Leakage Prevention**
    - Verify scaler is fit ONLY on training data
@@ -40,7 +40,7 @@ prepare features and data for machine learning modeling.
 
 5. **Class Imbalance Preparation**
    - Analyze target variable distribution across splits
-   - Document imbalance ratio (legitimate:fraud)
+   - Document imbalance ratio (majority:minority class)
    - Prepare context for baseline modeling (which handles imbalance via strategies)
    - No imbalance handling here—just document and prepare context
 
@@ -56,7 +56,7 @@ prepare features and data for machine learning modeling.
 - Scaler selection and justification
 - Dataset split summary:
   - Number of rows in each set
-  - Fraud count and percentage per set
+  - Minority class count and percentage per set
   - Proof that class distribution is preserved
 - Data leakage verification:
   - No row overlap between sets
@@ -92,16 +92,16 @@ prepare features and data for machine learning modeling.
 - Log class distribution percentages
 
 **Safety Checks:**
-- Confirm stratified split by checking fraud % in each set
+- Confirm stratified split by checking minority class % in each set
 - Verify scaler statistics make sense (centered at 0, standard scaled)
 - Check for NaN values after scaling
 - Validate that all data points were processed
 
-## Important Notes for Fraud Detection
+## Important Notes for Imbalanced Classification
 
-- **Class Imbalance Expected:** 0.17% fraud rate is extreme imbalance (1 fraud per ~579 legitimate)
-- **Stratification is Critical:** Without stratified splits, you risk train/val/test having different fraud percentages
-- **Outliers are Important:** Fraud transactions often have unusual amounts—RobustScaler preserves these signals
+- **Class Imbalance Expected:** Rare classes may represent 1% or less of your data
+- **Stratification is Critical:** Without stratified splits, you risk train/val/test having different class percentages
+- **Outliers are Important:** Minority class samples often have unusual feature values—RobustScaler preserves these signals
 - **No Imbalance Handling Here:** This step prepares data. Imbalance handling (SMOTE, class weights, undersampling) happens in baseline modeling
 
 ## Proceed to Next Step

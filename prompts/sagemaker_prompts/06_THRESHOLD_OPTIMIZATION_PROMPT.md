@@ -18,4 +18,4 @@ Identify:
 2. Threshold maximizing Recall
 3. Threshold maximizing Precision
 
-Recommend the optimal threshold for fraud detection and explain the business trade-offs.
+Recommend the optimal threshold for minority class detection and explain the business trade-offs (precision vs. recall).
