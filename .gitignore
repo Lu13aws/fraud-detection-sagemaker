@@ -35,12 +35,16 @@ secrets/
 keyfile
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# PRIVATE INTELLECTUAL PROPERTY & PROJECT-SPECIFIC CONTENT
+# INTELLECTUAL PROPERTY (TRACKED IN PERSONAL TOOLKIT ONLY)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# Note: Reusable frameworks (skills, scripts, prompts) are now included
-# as they are generalized and reusable across projects.
-# Exclude only project-specific or proprietary content and credentials.
+# The following are proprietary IP tracked in personal-data-engineering-toolkit
+# Do NOT commit them to this public repo — use toolkit as single source of truth
 
+skills/aws/aws_sagemaker/
+prompts/sagemaker_prompts/
+scripts/sagemaker_workflows/
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Exclude only private config files with credentials
 config/aws_config.py
 config/credentials.json
