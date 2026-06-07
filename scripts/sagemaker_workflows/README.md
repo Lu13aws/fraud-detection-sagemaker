@@ -131,20 +131,27 @@ python scripts/sagemaker_workflows/04_feature_engineering.py
 
 ### 05_visualization_eda.py
 
-**Purpose:** Create visualizations and identify patterns (Optional)
+**Purpose:** Create visualizations and identify patterns (Optional but recommended)
 
 **Tasks:**
-- Class distribution analysis
+- Class distribution and imbalance analysis
 - Feature correlation analysis
-- Outlier visualization
+- Outlier detection and visualization
 - Predictive feature identification
+- Risk assessment for machine learning
 
 **Usage:**
 ```bash
 python scripts/sagemaker_workflows/05_visualization_eda.py
 ```
 
-**Notes:** This is optional - useful for exploration but can be skipped in production
+**Custom S3 path:**
+```bash
+export S3_DATASET_PATH="s3://my-bucket/my-data.csv"
+python scripts/sagemaker_workflows/05_visualization_eda.py
+```
+
+**Notes:** This step provides critical insights but can be skipped if time-constrained. Outputs summary statistics and findings about data patterns.
 
 **Time:** 15-25 minutes
 
@@ -152,16 +159,17 @@ python scripts/sagemaker_workflows/05_visualization_eda.py
 
 ### 06_baseline_modeling.py
 
-**Purpose:** Train initial baseline models and compare strategies
+**Purpose:** Train baseline models and compare imbalance-handling strategies
 
 **Tasks:**
-- Train logistic regression and decision tree
-- Compare imbalance-handling strategies:
-  - Class weights
-  - SMOTE oversampling
-  - Undersampling
-- Evaluate with appropriate metrics (AUC-PR, Precision, Recall)
-- Identify best approach
+- Create stratified train/validation/test splits
+- Scale features using RobustScaler
+- Compare three imbalance strategies:
+  1. Class Weights — Penalize minority class errors
+  2. SMOTE Oversampling — Synthetic minority oversampling
+  3. Random Undersampling — Reduce majority class
+- Train Logistic Regression with each strategy
+- Evaluate and identify best approach
 
 **Usage:**
 ```bash
@@ -169,11 +177,17 @@ python scripts/sagemaker_workflows/06_baseline_modeling.py
 ```
 
 **Key Metrics:**
-- Precision (false positive rate)
-- Recall (fraud detection rate)
-- F1 Score (balanced metric)
-- AUC-PR (area under precision-recall curve) ⭐
-- AUC-ROC (area under ROC curve)
+- **Precision** — % of flagged cases that are true minority class
+- **Recall** — % of actual minority class cases caught
+- **F1 Score** — Harmonic mean (balanced metric)
+- **AUC-PR** — Area under precision-recall curve ⭐ PRIMARY for imbalanced data
+- **AUC-ROC** — Area under ROC curve
+
+**Output:**
+- Performance comparison table across all three strategies
+- Best strategy recommendation (by AUC-PR)
+- Test set evaluation with best model
+- Classification report
 
 **Time:** 20-30 minutes
 
@@ -181,27 +195,42 @@ python scripts/sagemaker_workflows/06_baseline_modeling.py
 
 ### 07_threshold_optimization.py
 
-**Purpose:** Optimize classification thresholds for business priorities
+**Purpose:** Find optimal decision thresholds based on business priorities
 
 **Tasks:**
-- Evaluate thresholds 0.01 to 0.99
-- Calculate metrics for each threshold
+- Load trained baseline model from script 06
+- Generate prediction probabilities for validation set
+- Evaluate thresholds from 0.01 to 0.99
+- Calculate Precision, Recall, F1 for each threshold
 - Identify optimal thresholds:
-  - F1 Score maximization
-  - Recall maximization
-  - Precision maximization
-- Trade-off analysis
-- Production recommendations
+  1. **F1 Maximization** — Balance precision and recall
+  2. **Recall Maximization** — Catch as much minority class as possible
+  3. **Precision Maximization** — Minimize false alarms
+- Perform business tradeoff analysis
+- Evaluate on test set and provide recommendations
 
 **Usage:**
 ```bash
 python scripts/sagemaker_workflows/07_threshold_optimization.py
 ```
 
+**Configuration:**
+```bash
+export S3_DATASET_PATH="s3://your-bucket/your-data.csv"
+export BUSINESS_PRIORITY="recall"  # Options: "recall", "precision", "balanced"
+python scripts/sagemaker_workflows/07_threshold_optimization.py
+```
+
 **Business Questions Answered:**
 - How many false alarms can we accept?
-- How much fraud must we catch?
-- What's the cost of missing fraud vs. false alarms?
+- How much minority class must we catch?
+- What's the cost of false alarm vs. missing minority class?
+
+**Output:**
+- Threshold analysis across 0.01-0.99 range
+- Optimal thresholds for each strategy
+- Business tradeoff analysis
+- Test set performance recommendations
 
 **Time:** 15-20 minutes
 
